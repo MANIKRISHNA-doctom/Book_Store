@@ -8,23 +8,27 @@ const User_creating = () => {
     const [message,setMessage] = useState('');
     const [error,setError] = useState('');
     const [access,setAccess] = useState('student');
+    const [college,setCollege] = useState('');
     const submit = async (e)=> {
     e.preventDefault();
     try {
       await axios.post(`http://localhost:5555/books/create_user`,{
       username,
       password,
-      access
+      access,
+      college
       });
       setMessage('User created successfully ');
       setError('');
       setUsername('');
       setPassword('');
+      setCollege('');
     } catch (error) {
       console.log(error.message);
       setError(error.message);
       setUsername('');
       setPassword('');
+      setCollege('');
       setMessage('');
     }
     }
@@ -41,24 +45,27 @@ const User_creating = () => {
             <input type="password" id='password' value={password} className='border-2 rounded-sm border-[#e5e5e5]' onChange={(e)=>{setPassword(e.target.value)}} />
         </div>
         <div >
-            <select name="access" value = {access} onChange ={(e)=> setAccess(e.target.value)} className='border-2 rounded ml-2 '>
+            <select name="access" value = {access} onChange ={(e)=> setAccess(e.target.value)} className='border-2 border-[#e5e5e5] rounded ml-2 '>
                 <option value="student" >Student</option>
                 <option value="library">Library Member</option>
             </select>
+        </div>
+        <div className='m-2 flex flex-col'>
+          <label htmlFor='college'>College</label>
+          <input type="text" id = "college" value = {college} onChange={(e)=>{setCollege(e.target.value)}} className='border-2 rounded-sm border-[#e5e5e5]'  />
         </div>
         <button type='submit' className='border-2 bg-blue-600 text-white m-2 rounded'>Submit</button>
        </form>
       {message &&
        <div className='mt-2'>
         <p>{message}</p>
-        <Link to='/'>
-          <button className='text-[#48cae4] underline hover:text-[#0077b6]'>Sign in</button>
-        </Link>
        </div> }
        {error && <p>{error}</p>}
+       <Link to='/'>
+          <button className='text-[#48cae4] underline hover:text-[#0077b6]'>Sign in</button>
+        </Link>
     </div>
     </div>
-    
   )
 }
 

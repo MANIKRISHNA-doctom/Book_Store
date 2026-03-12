@@ -2,8 +2,9 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import store_logo from "../assets/store_logo.jpeg"
 const Login = () => {
   const navigate = useNavigate();
   const [username,setUsername] = useState('');
@@ -13,7 +14,7 @@ const Login = () => {
     const submit = async (e)=> {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:5555/books/user_ver`,{
+      const res = await axios.post(`https://book-store-loya.vercel.app/books/user_ver`,{
       username,
       password,
     }, {
@@ -38,8 +39,12 @@ const Login = () => {
   }
    
   return (
-    <div className=' flex justify-center items-center h-screen'>
-      <div className='flex flex-col'>
+    <div>
+    <div className="bg-white-200 flex items-center p-3">
+      <img src={store_logo} alt="Bookstore" className="h-25 w-40 mr-3 bg-white-200 rounded" />
+    </div>
+    <div className=' flex justify-center h-screen'>
+      <div className='flex flex-col mt-30'>
         <form onSubmit={submit} className='flex flex-col w-sm gap-4 rounded border-2 border-[#8e9aaf]'>
         <div className='mx-2 flex flex-col'>
             <label htmlFor="name">Username</label>
@@ -59,6 +64,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 }
 

@@ -10,7 +10,7 @@ const Create = () => {
   const onsubmit = async(e)=>{
     e.preventDefault();
     try {
-       await axios.post("http://localhost:5555/books",{
+       const res = await axios.post("http://localhost:5555/books",{
         title : title,
         author: author,
         publishYear: year
@@ -50,7 +50,7 @@ const Create = () => {
       {error && <p>{error}</p>}
     </div>
     <div className='mt-2 flex justify-center  '>
-      <Link to = '/home' className='nav-link'>
+      <Link to = '/home' state={access} className='nav-link'>
       <button className='border-2 rounded-sm hover:border-[#d4a373]'>Home</button>
       </Link>
     </div>
