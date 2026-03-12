@@ -39,7 +39,7 @@ mongoose
 
 app.use( cors(
     {
-        origin : 'https://book-store-tau-olive.vercel.app/',
+        origin : 'https://book-store-tau-olive.vercel.app',
         methods : ['GET','POST','PUT','DELETE'],
         allowedHeaders : ['Content-Type'],
         credentials: true
