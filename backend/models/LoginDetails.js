@@ -9,6 +9,10 @@ const loginSchema = mongoose.Schema({
         type : String,
         required : true 
     },
+    college : {
+        type : String,
+        required : true
+    },
     access : {
          type : String,
         required : true 

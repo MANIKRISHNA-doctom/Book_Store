@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+import authMiddleware from "./middleware/authMiddleware.js";
 import express from "express";
 import { Book } from "../models/BookStore.js";
 import Userdata from "../models/LoginDetails.js";
@@ -11,7 +12,7 @@ const secret=process.env.JWT_SECRET;
  router.get('/logout',async (req,res)=>{
     const token = req.cookies.token;
     if(!token) {
-        res.status(400).send({ message : 'failed to logout'})
+        res.status(200).send({message : "Successfully logged out"});
     }
     try {
         const ver = jwt.verify(token,secret);
@@ -31,15 +32,17 @@ router.post('/', async (req,res)=> {
     try {
          const ver = jwt.verify(token,secret);
          const user = ver.id;
+         const college = ver.college;
+         const access = ver.access;
          if(Array.isArray(data)){
         const isvalid = data.some((element)=> !element.title || !element.author || !element.publishYear);
         if(isvalid){
             res.status(400).send('give all three inputs');
         }
         else {
-            const books = await Book.insertMany(data);
+            const books = await Book.insertMany(data,college);
             console.log(req.body);
-            res.status(200).json(books);
+            res.status(200).json({books,access});
         }
     }
     else {
@@ -51,12 +54,13 @@ router.post('/', async (req,res)=> {
             title : req.body.title,
             author : req.body.author,
             publishYear : req.body.publishYear,
-            user : user
+            user : user,
+            college : college
         };
         
         const book = await Book.create(newbook);
         console.log(req.body)
-        res.status(200).send(book);
+        res.status(200).send(book,access);
     }
 }
     } catch (error) {
@@ -188,17 +192,18 @@ router.post('/user_ver', async (req, res) => {
     const payload = {
         id : user._id,
         name : user.username,
-        access : user.access
+        access : user.access,
+        college : user.college
     }
     console.log(process.env.JWT_SECRET);
-    console.log(secret);
     const token = jwt.sign(payload,secret);
     res.cookie('token',token);
     res.status(200).json({
       success: true,
       message: 'Login successful',
       userId: user._id,
-      access : user.access
+      access : user.access,
+      college : user.college
     });
 
   } catch (error) {
@@ -211,18 +216,20 @@ router.post('/user_ver', async (req, res) => {
 });
 
 router.post('/create_user',async (req,res)=>{
-    const {username,password,access} = req.body;
+    const {username,password,access,college} = req.body;
     const  Password = await bcrypt.hash(password,12);
     const x = await Userdata.create({
         username ,
         password : Password,
-        access : access
+        access : access,
+        college : college
     });
     res.send(console.log(x));
     console.log(Password);
 })
-router.get('/search/:id',async (req,res)=>{
+router.get('/search/:id',authMiddleware,async (req,res)=>{
     const {id} = req.params;
+    const {college} = req.user;
     if(!id){
         return res.send([]);
     }
@@ -231,7 +238,8 @@ router.get('/search/:id',async (req,res)=>{
         $or: [
                 { title: { $regex: id, $options: 'i' } },
                 { author: { $regex: id, $options: 'i' } },
-                { category: { $regex: id, $options: 'i' } } 
+                { category: { $regex: id, $options: 'i' } },
+                { college : college } 
             ]
     }).limit(20);
     res.status(200).json(Books);

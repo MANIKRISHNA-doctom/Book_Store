@@ -17,6 +17,10 @@ const bookschema = mongoose.Schema(
         user : {
             type : String,
             required : true
+        },
+        college : {
+            type : String,
+            required : true
         }
     }
 );
