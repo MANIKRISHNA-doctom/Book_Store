@@ -197,7 +197,11 @@ router.post('/user_ver', async (req, res) => {
     }
     console.log(process.env.JWT_SECRET);
     const token = jwt.sign(payload,secret);
-    res.cookie('token',token);
+    res.cookie('token',token,{
+        httpOnly: true,
+        secure: true,
+        sameSite: "None"
+    });
     res.status(200).json({
       success: true,
       message: 'Login successful',
