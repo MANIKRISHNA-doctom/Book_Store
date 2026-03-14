@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 const Create = () => {
   const [title,settitle] = useState('');
   const [author,setauthor] = useState('');
   const [year,setyear] = useState('');
+  const [access,setAccess] = useState('');
   const [message,setMessage] = useState('');
   const [error,setError] = useState('');
   const onsubmit = async(e)=>{
     e.preventDefault();
     try {
-       const res = await axios.post("http://localhost:5555/books",{
+       const res = await axios.post("https://book-store-api-phtz.onrender.com/books",{
         title : title,
         author: author,
         publishYear: year
@@ -33,6 +35,12 @@ const Create = () => {
       setMessage('');
     }
   };
+ useEffect(() => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  console.log(token);
+ // const decoded = jwtDecode(stored.token);
+    setAccess(token.access);
+  }, []);
   return (
     <>
   <div className=' h-screen flex flex-col justify-center items-center'>
@@ -50,7 +58,7 @@ const Create = () => {
       {error && <p>{error}</p>}
     </div>
     <div className='mt-2 flex justify-center  '>
-      <Link to = '/home' state={access} className='nav-link'>
+      <Link to = '/home' state={{ access: access }} className='nav-link'>
       <button className='border-2 rounded-sm hover:border-[#d4a373]'>Home</button>
       </Link>
     </div>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import store_logo from "../assets/store_logo.jpeg"
+import book_image from "../assets/book_image.png"
 const Login = () => {
   const navigate = useNavigate();
   const [username,setUsername] = useState('');
@@ -21,6 +22,18 @@ const Login = () => {
       withCredentials: true
 });
     if(res.data.success) {
+      const {userId,access,college} = res.data;
+      console.log(userId);
+      console.log(userId);
+      localStorage.setItem(
+      "token",
+      JSON.stringify({
+      userId: userId,
+      access: access,
+      college: college
+  })
+);
+      console.log(res.data);
       navigate('/home',{
         state : {
             access : res.data.access
@@ -41,7 +54,7 @@ const Login = () => {
   return (
     <div>
     <div className="bg-white-200 flex items-center p-3">
-      <img src={store_logo} alt="Bookstore" className="h-25 w-40 mr-3 bg-white-200 rounded" />
+      <img src={book_image} alt="Bookstore" className="h-25 w-40 mr-3 bg-white-200 rounded" />
     </div>
     <div className=' flex justify-center h-screen'>
       <div className='flex flex-col mt-30'>

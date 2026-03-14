@@ -5,6 +5,7 @@ import { useEffect,useState  } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import store_logo from "../assets/store_logo.jpeg"
+import book_image from "../assets/book_image.png"
 const Home = () => {
   const [search,setSearch] = useState('');
   const [books,setBooks] = useState([]);
@@ -15,7 +16,8 @@ const Home = () => {
   const college = location.state?.college;
   const logout = async ()=>{
     try {
-     const log =await axios.get('http://localhost:5555/books/logout',{withCredentials : true});
+     const log =await axios.get('https://book-store-api-phtz.onrender.com/books/logout',{withCredentials : true});
+     localStorage.clear();
       navigate('/');
     } catch (error) {
       if(!error.response){
@@ -32,7 +34,7 @@ const Home = () => {
           setBooks([]);
           return;
         }
-        const res = await axios.get(`http://localhost:5555/books/search/${search}`,{
+        const res = await axios.get(`https://book-store-api-phtz.onrender.com/books/search/${search}`,{
           withCredentials : true
         });
         setBooks(res.data);
@@ -48,7 +50,7 @@ const Home = () => {
       {access == 'library' && (<Link to = '/books/Create'>
         <button className='bg-[#00b4d8] text-white border rounded mr-2 hover:bg-[#0077b6]'> add book</button>
       </Link>)}
-      <img src={store_logo} alt = "Book Store" className='h-15 object-contain'></img>
+      <img src={book_image} alt = "Book Store" className='h-15 object-contain rounded-full'></img>
       <button className='border-2 text-white rounded-sm py-0 mr-2 bg-[#ef233c] hover:bg-[#a4133c]' onClick={logout}>logout</button>
     </div>
     <div className='flex justify-center mt-10'> 
@@ -65,7 +67,6 @@ const Home = () => {
             <p className='inline-block m-2'>{book.title}</p>
             <p className='inline-block m-2'>{book.author}</p>
             <p className='inline-block m-2'>{book.publishYear}</p>
-            <p>avaliable {}</p>   
            </div>
         )
       )}

@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const verify = async ()=>{
         try {
-            const res = await axios.get('http://localhost:5555/books/auth', { withCredentials: true })
+            const res = await axios.get('https://book-store-api-phtz.onrender.com/auth', { withCredentials: true })
                 setLoading(false);
         } catch (error) {
             navigate('/',{replace : true});

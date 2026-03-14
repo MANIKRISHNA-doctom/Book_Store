@@ -7,7 +7,7 @@ import Update from './pages/Update'
 import Read from './pages/Read'
 import Login from './pages/Login'
 import User_creating from './pages/User_creating'
-import ProtectedRoute from './pages/ProtectedRoute'
+import ProtectedRoute from './pages/ProtectedRoute';
 //import { ToastContainer } from 'react-toastify'
 //import 'react-toastify/dist/ReactToastify.css';
 const App = () => {

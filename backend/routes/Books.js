@@ -40,7 +40,7 @@ router.post('/', async (req,res)=> {
             res.status(400).send('give all three inputs');
         }
         else {
-            const books = await Book.insertMany(data,college);
+            const books = await Book.insertMany(data,user,college);
             console.log(req.body);
             res.status(200).json({books,access});
         }
@@ -235,11 +235,11 @@ router.get('/search/:id',authMiddleware,async (req,res)=>{
     }
     try {
             const Books = await Book.find({
+                 college : college,
         $or: [
                 { title: { $regex: id, $options: 'i' } },
                 { author: { $regex: id, $options: 'i' } },
                 { category: { $regex: id, $options: 'i' } },
-                { college : college } 
             ]
     }).limit(20);
     res.status(200).json(Books);
