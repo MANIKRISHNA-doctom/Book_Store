@@ -8,7 +8,7 @@ const Delete = () => {
   useEffect(()=>{
     const del = async ()=>{
       try {
-        await axios.delete(`https://book-store-api-phtz.onrender.com/books/${id}`,{withCredentials : true});
+        await axios.delete(`https://book-store-backend-api-rsv8.onrender.com/books/${id}`,{withCredentials : true});
         navigate('/books/show',{
           state : {
             t : 'deleted'

@@ -12,7 +12,7 @@ const User_creating = () => {
     const submit = async (e)=> {
     e.preventDefault();
     try {
-      await axios.post(`https://book-store-api-phtz.onrender.com/books/create_user`,{
+      await axios.post(`https://book-store-backend-api-rsv8.onrender.com/books/create_user`,{
       username,
       password,
       access,

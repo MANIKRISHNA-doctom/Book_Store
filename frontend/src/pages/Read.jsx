@@ -29,7 +29,7 @@ const Read = () => {
         console.log(access);
         const getbooks = async()=>{
        try {
-        const res = await axios.get('https://book-store-api-phtz.onrender.com/books',{withCredentials : true});
+        const res = await axios.get('https://book-store-backend-api-rsv8.onrender.com/books',{withCredentials : true});
         setBooks(res.data);
         setLoading(false);
        } catch (error) {

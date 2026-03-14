@@ -12,7 +12,7 @@ const Update = () => {
   const onsubmit = async(e)=>{
     e.preventDefault();
     try {
-       await axios.put(`https://book-store-api-phtz.onrender.com/books/${id}`,{
+       await axios.put(`https://book-store-backend-api-rsv8.onrender.com/books/${id}`,{
         title : title,
         author: author,
         publishYear: year

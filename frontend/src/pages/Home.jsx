@@ -34,7 +34,7 @@ const Home = () => {
           setBooks([]);
           return;
         }
-        const res = await axios.get(`https://book-store-api-phtz.onrender.com/books/search/${search}`,{
+        const res = await axios.get(`https://book-store-backend-api-rsv8.onrender.com/books/search/${search}`,{
           withCredentials : true
         });
         setBooks(res.data);

@@ -15,7 +15,7 @@ const Login = () => {
     const submit = async (e)=> {
     e.preventDefault();
     try {
-      const res = await axios.post(`https://book-store-api-phtz.onrender.com/books/user_ver`,{
+      const res = await axios.post(`https://book-store-backend-api-rsv8.onrender.com/books/user_ver`,{
       username,
       password,
     }, {

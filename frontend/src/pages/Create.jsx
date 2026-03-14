@@ -12,7 +12,7 @@ const Create = () => {
   const onsubmit = async(e)=>{
     e.preventDefault();
     try {
-       const res = await axios.post("https://book-store-api-phtz.onrender.com/books",{
+       const res = await axios.post("https://book-store-backend-api-rsv8.onrender.com/books",{
         title : title,
         author: author,
         publishYear: year
