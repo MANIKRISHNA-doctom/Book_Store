@@ -48,9 +48,14 @@ const Read = () => {
       <p className='text-red-600'>{remove}</p>
       {loading ? (<p>Loading...</p>) : books.length === 0 ? <p>no book is found</p> : books.map(book => (
       <div className= 'border-2 ' key={book._id} >
-          <p>Title : {book.title}</p>
-          <p>Author : {book.author}</p>
-          <p>Publishyear : {book.publishYear}</p>
+          {access !== student && (
+          <>
+            <p>Title : {book.title}</p>
+            <p>Author : {book.author}</p>
+            <p>Publishyear : {book.publishYear}</p>
+          </>
+          )}
+          
           <div className=''>
             <div className='inline-block mr-2'>
               <Link to={`/books/delete/${book._id}`}>

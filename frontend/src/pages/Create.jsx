@@ -51,7 +51,7 @@ const Create = () => {
       <label htmlFor="author">Name of the author</label>
       <input type="text" id='author'  value= {author} onChange={(e)=>{setauthor(e.target.value)}} className='border-[#d4a373] border-2'/>
       <label htmlFor="year">Enter published year</label>
-      <input type="text" id='year' value={year} onChange={(e)=>setyear(e.target.value)} className='border-[#d4a373] border-2'/>
+      <input type="number" id='year' value={year} onChange={(e)=>setyear(e.target.value)} className='border-[#d4a373] border-2'/>
       <button className='border-1 mt-1 bg-[#1b263b] text-white w-24 rounded-lg hover:bg-[#415a77] '>SUBMIT</button>
       </form>
       {message && <p className='text-[#55a630]'>{message}</p>}
