@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "https://book-store-tau-olive.vercel.app",
+  origin: "https://book-store-delta-henna.vercel.app",
   credentials: true
 }));
 
