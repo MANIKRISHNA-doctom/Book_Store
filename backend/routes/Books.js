@@ -74,8 +74,14 @@ router.get('/',async (req,res)=> {
     }
     try{
         const ver = jwt.verify(token,secret);
-        const books = await Book.find({user : ver.id});
+        if (ver.access === "student") {
+        const books = await Book.find({ college: ver.college });
         res.status(200).json(books);
+        } 
+        else {
+             const books = await Book.find({ user: ver.id });
+             res.status(200).json(books);
+        }
     }
     catch(error){
         res.status(400).send({message : error.message});
