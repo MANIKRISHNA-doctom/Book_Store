@@ -16,7 +16,7 @@ const Home = () => {
   const college = location.state?.college;
   const logout = async ()=>{
     try {
-     const log =await axios.get('https://book-store-api-phtz.onrender.com/books/logout',{withCredentials : true});
+     const log =await axios.get('https://book-store-backend-api-rsv8.onrender.com/books/logout',{withCredentials : true});
      localStorage.clear();
       navigate('/');
     } catch (error) {
