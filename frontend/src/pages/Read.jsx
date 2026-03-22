@@ -57,7 +57,7 @@ const Read = () => {
               <p>Title : {book.title}</p>
               <p>Author : {book.author}</p>
               <p>Publishyear : {book.publishYear}</p>
-              {access != "Student" && (
+              {access != "student" && (
                 <div className="">
                   <div className="inline-block mr-2">
                     <Link to={`/books/delete/${book._id}`}>
