@@ -7,9 +7,10 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const verify = async ()=>{
         try {
-            const res = await axios.get('https://book-store-backend-api-rsv8.onrender.com/auth', { withCredentials: true })
+            const res = await axios.get('https://book-store-backend-api-rsv8.onrender.com/books/auth', { withCredentials: true });
                 setLoading(false);
         } catch (error) {
+            setLoading(false);
             navigate('/',{replace : true});
             console.log(error.response.data.message);
         }
