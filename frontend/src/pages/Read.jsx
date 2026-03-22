@@ -48,7 +48,7 @@ const Read = () => {
       <p className='text-red-600'>{remove}</p>
       {loading ? (<p>Loading...</p>) : books.length === 0 ? <p>no book is found</p> : books.map(book => (
       <div className= 'border-2 ' key={book._id} >
-          {access !== student && (
+          {access != "Student" && (
           <>
             <p>Title : {book.title}</p>
             <p>Author : {book.author}</p>
