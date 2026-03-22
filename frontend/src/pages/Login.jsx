@@ -24,7 +24,7 @@ const Login = () => {
     if(res.data.success) {
       const {userId,access,college} = res.data;
       console.log(userId);
-      console.log(userId);
+      console.log(access);
       localStorage.setItem(
       "token",
       JSON.stringify({
