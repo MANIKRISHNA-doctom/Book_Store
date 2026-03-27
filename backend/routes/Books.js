@@ -225,14 +225,29 @@ router.post('/user_ver', async (req, res) => {
   }
 });
 
+
+router.get('/colleges/:query', async (req, res) => {
+  const { query } = req.params;
+  try {
+    const colleges = await Userdata.distinct("college", {
+      college: { $regex: query, $options: "i" }
+    }); 
+
+    res.status(200).json(colleges);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.post('/create_user',async (req,res)=>{
     const {username,password,access,college} = req.body;
+    const normalizedCollege = college.trim().toLowerCase();
     const  Password = await bcrypt.hash(password,12);
     const x = await Userdata.create({
         username ,
         password : Password,
         access : access,
-        college : college
+        college : normalizedCollege
     });
     res.send(console.log(x));
     console.log(Password);

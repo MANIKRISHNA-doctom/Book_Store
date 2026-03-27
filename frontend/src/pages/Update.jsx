@@ -33,7 +33,7 @@ const Update = () => {
   useEffect(()=>{
       const edit = async ()=>{
         try {
-          const res = await axios.get(`http://localhost:5555/books/${id}`);
+          const res = await axios.get(`https://book-store-backend-api-rsv8.onrender.com/books/${id}`);
           const book = res.data;
           settitle(book.title);
           setauthor(book.author);
