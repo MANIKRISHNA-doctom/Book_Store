@@ -15,6 +15,15 @@ const User_creating = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
+      if(!college || !password || !access || !username){
+        setError("Please fill all required fields");
+        setMessage("Please fill all required fields");
+        setError("");
+        setUsername("");
+        setPassword("");
+        setCollege("");
+        return;
+      }
       await axios.post(`https://book-store-backend-api-rsv8.onrender.com/books/create_user`, {
         username,
         password,
@@ -52,7 +61,7 @@ const User_creating = () => {
         setColleges([]);
         setShow(false);
       }
-    }, 400);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [query]);
@@ -70,7 +79,7 @@ const User_creating = () => {
           className="flex flex-col w-sm gap-2 rounded border-2 border-[#8e9aaf]"
         >
           <div className="m-2 flex flex-col">
-            <label htmlFor="name"> Create Username</label>
+            <label htmlFor="name"> Create Username <span className="text-red-500">*</span></label>
             <input
               type="text"
               id="name"
@@ -82,7 +91,7 @@ const User_creating = () => {
             />
           </div>
           <div className="m-2 flex flex-col">
-            <label htmlFor="password"> Create Password</label>
+            <label htmlFor="password"> Create Password <span className="text-red-500">*</span></label>
             <input
               type="password"
               id="password"
@@ -105,7 +114,7 @@ const User_creating = () => {
             </select>
           </div>
           <div className="m-2 flex flex-col">
-            <label htmlFor="college">Enter college name</label>
+            <label htmlFor="college">Enter college name <span className="text-red-500">*</span></label>
             <input
               type="text"
               id="college"
@@ -135,12 +144,13 @@ const User_creating = () => {
           >
             Submit
           </button>
+          {message && (
+            <div className="mt-1 pl-4 text-red-400">
+              <p>{message}</p>
+            </div>
+          )}
         </form>
-        {message && (
-          <div className="mt-2">
-            <p>{message}</p>
-          </div>
-        )}
+        
         {error && <p>{error}</p>}
         <Link to="/">
           <button className="text-[#48cae4] underline hover:text-[#0077b6]">
